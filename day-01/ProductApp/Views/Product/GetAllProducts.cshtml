@@ -1,0 +1,14 @@
+﻿@model List<Product>
+
+    <h1>Product List</h1>
+    <br />
+    @foreach (var item in Model)
+    {
+        <div>
+            <h4>@item.ProductName</h4>
+            <p><b>Fiyatı: @item.Price</b></p>
+            <hr>
+        </div>
+        
+    }
+    <a class="btn btn-success"  asp-controller="Home" asp-action="Index">Home</a>

@@ -1,0 +1,16 @@
+table{
+    border: black 2px solid;
+    background-color: rgb(242, 190, 112);
+}
+table tr th{
+    background-color: rgb(42, 116, 181);
+}
+table tr th,td{
+    height: 100%;
+    min-width: 60px;
+    border: 1px solid;
+}
+td:hover{
+    cursor: pointer;
+    background-color: blueviolet;
+}
