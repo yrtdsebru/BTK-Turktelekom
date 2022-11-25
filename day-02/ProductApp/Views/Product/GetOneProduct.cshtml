@@ -5,6 +5,6 @@
       @foreach (var item in Model)
       {
           <h3>@item.ProductName</h3>
-          <p>Fiyat: @item.Price</p>
+          <p>Fiyat: @item.Price.ToString("c")</p>
           <hr />
       }

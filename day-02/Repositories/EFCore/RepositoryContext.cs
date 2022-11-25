@@ -12,7 +12,7 @@ namespace Repositories.EFCore
         public RepositoryContext(DbContextOptions<RepositoryContext> options) 
             : base(options)    //base'e göndericeğiz
         {
-            
+           
         }
 
         //ctrl+.   generate overriding   onmodelcreating, bir builder var üzerinden kayıt yapıcaz

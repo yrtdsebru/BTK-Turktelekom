@@ -9,9 +9,9 @@ namespace Entities.Models
     public class Product
     {
         //prop
-        public int Id { get; set; }
-        public String ProductName { get; set; }
-        public Decimal Price { get; set; }
+        public int Id { get; set; }  // property default : 0
+        public String ProductName { get; set; }  // default : null
+        public Decimal Price { get; set; }  // default: 0
 
         //ctor, overloading(farklı parametrelerle ,overiting(görevi değiştir)
         public Product()

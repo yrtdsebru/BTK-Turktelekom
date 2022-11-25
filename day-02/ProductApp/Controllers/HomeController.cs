@@ -8,7 +8,7 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        string msg = "selam";
+        string msg = "Just look this message :D :P";
         return View("Index",msg);
     }
 
