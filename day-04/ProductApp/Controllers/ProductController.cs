@@ -87,10 +87,31 @@ namespace ProductApp.Controllers
         [HttpPost]       //.Net de []   filter/data attribute
         public IActionResult UpdateOneProduct(Product product)
         {
+            product.AtCreated = DateTime.Now;
             //entity'nin izleme ozelligini kullanacagiz
             _context.Products.Update(product);  //Bu güncellese de biz goremeyiz degisiklik yapmiyo
             _context.SaveChanges();
             return RedirectToAction("GetAllProducts");  
+        }
+
+        [HttpPost]  //silme islemi icin Post yeterli
+        public IActionResult DeleteOneProduct(int id) {
+            //1.Urunu veritabanindan sec
+            //2.sil
+            //3.degisiklikleri kaydet
+            var product = _context.Products.Where(x => x.Id == id).SingleOrDefault();
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+
+            /*         
+            _context.Products.Remove(new Product() );
+            _context.SaveChanges();
+            
+            ****parametreyi Product prd verirsek
+            _context.Products.Remove(prd);
+            _context.SaveChanges();*/
+
+            return RedirectToAction("GetAllProducts");
         }
     }
 }

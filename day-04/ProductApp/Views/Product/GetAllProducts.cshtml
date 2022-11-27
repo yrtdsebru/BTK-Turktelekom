@@ -17,10 +17,17 @@
                     <!--<a class="btn btn-warning" href="@string.Format("/Product/GetOneProduct/{0}",item.Id)">Product</a>
 
                       Boyle kullanmak yerine tag helpersları kullan "_ViewImports.cshtml"-->
-                    <a class="btn btn-warning" asp-controller="Product" asp-action="GetOneProduct" asp-route-id=@item.Id>Get Details</a>
-                    <a class="btn btn-outline-warning" asp-controller="Product" asp-action="UpdateOneProduct" asp-route-id=@item.Id>Update</a>
+                    <a class="btn btn-info" asp-controller="Product" asp-action="GetOneProduct" asp-route-id=@item.Id>Get Details</a>
 
                     <hr />
+
+                    <div class="row">
+                        <a class="btn btn-outline-warning col-4" asp-controller="Product" asp-action="UpdateOneProduct" asp-route-id=@item.Id>Update</a>
+                        <form method="post" asp-controller="Product" asp-action="DeleteOneProduct" asp-route-id=@item.Id class="col-6">
+                            <button type="submit" class="btn btn-outline-danger" >Delete</button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
