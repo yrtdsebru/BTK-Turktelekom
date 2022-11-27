@@ -9,11 +9,11 @@ using Repositories.EFCore;
 
 #nullable disable
 
-namespace Repositories.Migrations
+namespace ProductApp.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20221126125951_startPoint")]
-    partial class startPoint
+    [Migration("20221127113700_CreateCategory")]
+    partial class CreateCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,48 @@ namespace Repositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Entities.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("No Description");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Teknoloji",
+                            Description = "New Technologies"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Ev",
+                            Description = "Best Sale"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Sağlık",
+                            Description = "...."
+                        });
+                });
 
             modelBuilder.Entity("Entities.Models.Product", b =>
                 {

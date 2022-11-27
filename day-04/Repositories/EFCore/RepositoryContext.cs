@@ -7,6 +7,7 @@ namespace Repositories.EFCore
     public class RepositoryContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         //constructer'ımız  bunu oluşturunca default olan RepositoryC
         public RepositoryContext(DbContextOptions<RepositoryContext> options) 
@@ -21,6 +22,7 @@ namespace Repositories.EFCore
             //model olusturulunca calisir bu kod.
             //kayıt var mı yokmu bak varsa ekle, modeli create ederken bu config dosyasına bak demek
             modelBuilder.ApplyConfiguration(new ProductConfig());
+            modelBuilder.ApplyConfiguration(new CategoryConfig());
         }
     }
 }

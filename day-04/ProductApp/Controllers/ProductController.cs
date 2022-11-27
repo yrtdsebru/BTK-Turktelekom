@@ -59,6 +59,7 @@ namespace ProductApp.Controllers
 
         //server->post->client
         [HttpPost]
+        [ValidateAntiForgeryToken]   //bizim client'ımız degil de art niyetli baska bir client istekte bulunmasını engeller
         public IActionResult CreateOneProductWithView(Product product)
         {
             /*            
@@ -66,11 +67,14 @@ namespace ProductApp.Controllers
             _context.SaveChanges(); //kalıcı hale getiriyoruz.
 
             return RedirectToAction("GetAllProduct");*/
+            if(ModelState.IsValid)  //[Require] vs uyuyorsa 
+            {
+                _context.Add(product); //repoya kaydediyoruz urunu
+                _context.SaveChanges(); //kalıcı hale getiriyoruz.
 
-            _context.Add(product); //repoya kaydediyoruz urunu
-            _context.SaveChanges(); //kalıcı hale getiriyoruz.
-
-            return View("CreateOneProductWithView");
+                return RedirectToAction("CreateOneProductWithView");
+            }
+            return View();
         }
 
         //veri geliyor
@@ -85,13 +89,19 @@ namespace ProductApp.Controllers
 
         //veritabanina yeni veriler gidicek ve veriyi güncelleyecek
         [HttpPost]       //.Net de []   filter/data attribute
+        [ValidateAntiForgeryToken]
         public IActionResult UpdateOneProduct(Product product)
         {
-            product.AtCreated = DateTime.Now;
-            //entity'nin izleme ozelligini kullanacagiz
-            _context.Products.Update(product);  //Bu güncellese de biz goremeyiz degisiklik yapmiyo
-            _context.SaveChanges();
-            return RedirectToAction("GetAllProducts");  
+            if (ModelState.IsValid)
+            {
+                product.AtCreated = DateTime.Now;
+                //entity'nin izleme ozelligini kullanacagiz
+                _context.Products.Update(product);  //Bu güncellese de biz goremeyiz degisiklik yapmiyo
+                _context.SaveChanges();
+                return RedirectToAction("GetAllProducts");
+            }
+
+            return View();
         }
 
         [HttpPost]  //silme islemi icin Post yeterli
