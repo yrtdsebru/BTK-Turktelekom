@@ -1,0 +1,14 @@
+﻿@model Product
+
+<div class="text-center">
+    <h1>@Model.ProductName</h1>
+    <span class="bg-danger text-white badge p-3 m-3">  
+     Fiyat: @Model.Price.ToString("c")</span>
+    <hr />
+    
+    <!--<a href="/Product/GetAllProducts" class="btn btn-warning" style="text-decoration:none;">Product List</a> 
+
+    Boyle kullanmak yerine tag helpersları kullan "_ViewImports.cshtml"-->
+    <a class="btn btn-warning" asp-controller="Product" asp-action="GetAllProducts">Product List</a>
+</div>
+
