@@ -1,0 +1,21 @@
+﻿@model Category
+
+<form method="post" asp-controller="Category" asp-action="UpdateOneCategory">  <!--formun nereye gidecegini belirtiyoruz!!! olmazsa veriler nereye gidicek?-->
+    <div asp-validation-summary="All" class="text-danger"></div> <!--validasyonda bir sorun varsa eger bu sorunu bize soyleyecek-->
+    <input type="hidden" asp-for="CategoryId" /> <!--Onemli  burada Id'yi alamazsak post ile update fonksiyonuna id bilgisi gitmiyor ve insert islemi gibi davraniyor. Zaten gizli aldik gerk yok yani id'ye-->
+    <div class="form-group">
+        <label for="CategoryName"><b>Category Name</b></label>
+        <input class="form-control" type="text" asp-for="CategoryName" id="CategoryName" placeholder="Ürün adı?" /> <!--normalde value=(et)Model.CategoryName de eklememiz gerekir -->
+        <span class="text-danger" asp-validation-for="CategoryName"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Description"><b>Description</b></label>
+        <input class="form-control" type="text" asp-for="Description" id="DescriptionName" placeholder="Açıklama" />
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Update</button><br />
+
+</form>
+

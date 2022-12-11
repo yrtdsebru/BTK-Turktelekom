@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Category>   //Enumerable elimde bir sey var bundan sonra ne gelicek, sıradaki verir,List tipini de baglayabiliriz, biz arayüz bagladik
+
+<ul class="list-group">
+    @foreach (Category cat in @Model )  @* (et)Model yerine bu vardı ViewBag kullanırken -> ViewBag.Categories*@
+    {
+        <li class="list-group-item">
+            <a style="text-decoration: none; color: black;" asp-action="GetAllProductsByCategoryId" asp-route-id="@cat.CategoryId">@cat.CategoryName</a>
+        </li>
+    }
+</ul>
