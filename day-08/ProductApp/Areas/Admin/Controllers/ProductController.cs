@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Repositories.Contract;
 using Repositories.EFCore;
+using Services.Contracts;
 
 namespace ProductApp.Areas.Admin.Controllers
 {
@@ -14,25 +15,23 @@ namespace ProductApp.Areas.Admin.Controllers
 
         //****************DI Frame Start************
         //private readonly RepositoryContext _context;
-        private readonly IRepositoryManager _manager;
-        private readonly IMapper _mapper;
+        private readonly IServiceManager _manager;
 
-        public ProductController(IRepositoryManager manager, IMapper mapper)
+        public ProductController(IServiceManager manager)
         {
             _manager = manager;
-            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var products = _manager.Product.GetAllProducts();  //modelimiz list of product 
+            var products = _manager.ProductService.GetAllProducts();  //modelimiz list of product 
             TempData["info"] = "Products have been listed.";  //bildirim ayarla
             return View(products);
         }
 
         [HttpGet]
         public IActionResult CreateOneProduct() {  //get
-            var categories = _manager.Category.GetAllCategories();
+            var categories = _manager.CategoryService.GetAllCategories();
             ViewBag.Categories = new SelectList(categories,"CategoryId","CategoryName");   //Categorilere ulasabiliriz.
             return View(); 
         }
@@ -42,13 +41,9 @@ namespace ProductApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]   //bizim client'ımız degil de art niyetli baska bir client istekte bulunmasını engeller
         public IActionResult CreateOneProduct(ProductForInsertionDto productDto)
         {
-
-            var product= _mapper.Map<Product>(productDto);  // product'tan Dto'ya gitmek istiyoruz.
-
             if (ModelState.IsValid)  //[Require] vs uyuyorsa 
             {
-                _manager.Product.Create(product); //repoya kaydediyoruz urunu
-                _manager.Save(); //kalıcı hale getiriyoruz.
+                _manager.ProductService.CreateOneProduct(productDto); //repoya kaydediyoruz urunu
                 TempData["success"] = "Product has been created";
                 return RedirectToAction("Index");
             }
@@ -59,9 +54,8 @@ namespace ProductApp.Areas.Admin.Controllers
         [HttpGet] //yazamasak da olur default
         public IActionResult UpdateOneProduct([FromRoute(Name = "id")] int id)
         {
-            ViewBag.Categories = new SelectList(_manager.Category.GetAllCategories(), "CategoryId", "CategoryName");
-            var product = _manager.Product.GetAllProductsByCategoryId(id);
-            var productDto = _mapper.Map<ProductForUpdateDto>(product);
+            ViewBag.Categories = new SelectList(_manager.CategoryService.GetAllCategories(), "CategoryId", "CategoryName");
+            var productDto = _manager.ProductService.GetOneProductForUpdate(id);    
             return View(productDto);
         }
 
@@ -70,26 +64,19 @@ namespace ProductApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult UpdateOneProduct(ProductForUpdateDto productDto)
         {
-            var product = _mapper.Map<Product>(productDto);  // product'tan Dto'ya gitmek istiyoruz.
 
             if (ModelState.IsValid)
             {
-                product.AtCreated = DateTime.Now;
-                //entity'nin izleme ozelligini kullanacagiz
-                _manager.Product.Create(product);  //Bu güncellese de biz goremeyiz degisiklik yapmiyo
-                _manager.Save();
+                _manager.ProductService.UpdateOneProduct(productDto);  //Bu güncellese de biz goremeyiz degisiklik yapmiyo
                 return RedirectToAction("Index");
             }
-
             return View();
         }
 
         [HttpPost]  //silme islemi icin Post yeterli
         public IActionResult DeleteOneProduct(int id)
         {
-            _manager.Product.Delete(new Product() { Id = id});
-            _manager.Save();
-
+            _manager.ProductService.DeleteOneProduct(id);
             return RedirectToAction("Index");
         }
     }
