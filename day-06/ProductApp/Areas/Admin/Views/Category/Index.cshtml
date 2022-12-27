@@ -1,0 +1,42 @@
+﻿<!--_ViewImport'a eklemeliyiz. Bunu using Entities.Models  -->
+@model List<Category>   //List of product. Bu modelle controller'daki ayni olmalı, List yerine IEnumerable'da olabilirdi.
+
+<div class="row">
+
+    <table class="table table-bordered">
+        <thead align="center">
+            <tr>
+                <th scope="col">Categories</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody align="center">
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td style="align-content: center;"><a href="GetOneCategory.cshtml">@item.CategoryId</a></td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <div class="row" style="padding: 10px;">
+                            <a class="btn btn-outline-warning col-4" asp-area="Admin" asp-controller="Category" asp-action="UpdateOneCategory" asp-route-id=@item.CategoryId>Update</a>
+                            <form method="post" asp-controller="Category" asp-area="Admin" asp-action="DeleteOneCategory" asp-route-id=@item.CategoryId class="col-6">
+                                <button type="submit" class="btn btn-outline-danger ">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <div class="my-3 d-flex justify-content-end">
+        <a asp-area="Admin" asp-controller="Category" asp-action="CreateOneCategory" class="btn btn-success">Create One Category</a>
+    </div>
+
+</div>
+

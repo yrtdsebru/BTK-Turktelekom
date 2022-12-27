@@ -1,0 +1,42 @@
+﻿@model List<Product>
+
+<div class="row">
+    <br /><br />
+    <table class="table table-bordered">
+        <thead align="center">
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Description</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody align="center">
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Category.CategoryName</td>
+                    <td style="align-content: center;">@item.ProductName</td>
+                    <td>@item.Price</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <div class="row" style="padding: 10px;">
+                            <a class="btn btn-outline-warning col-4" asp-area="Admin" asp-controller="Product" asp-action="UpdateOneProduct" asp-route-id=@item.Id>Update</a>
+                            <form method="post" asp-area="Admin" asp-controller="Product" asp-action="DeleteOneProduct" asp-route-id=@item.Id class="col-6">
+                                <button type="submit" class="btn btn-outline-danger ">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <br />
+    <div class="my-3 d-flex justify-content-end">
+        <a asp-area="Admin" asp-controller="Product" asp-action="CreateOneProduct" class="btn btn-success">Create One Product</a>
+    </div>
+</div>

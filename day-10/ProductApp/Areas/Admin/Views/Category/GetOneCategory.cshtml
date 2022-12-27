@@ -1,0 +1,9 @@
+﻿@model Category
+
+<div class="text-center">
+    <h1>Category:  @Model.CategoryName</h1>
+    <p><em>@Model.Description</em></p>
+    <hr />
+    
+    <a class="btn btn-warning" asp-controller="Category" asp-action="GetAllCategories">Category List</a>
+</div>

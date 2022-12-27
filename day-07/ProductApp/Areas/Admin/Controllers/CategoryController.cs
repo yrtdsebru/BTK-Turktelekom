@@ -1,0 +1,95 @@
+﻿using Entities.Models;
+using Microsoft.AspNetCore.Mvc;
+using Repositories.Contract;
+
+namespace ProductApp.Areas.Admin.Controllers
+{
+    [Area("Admin")]
+    public class CategoryController : Controller
+    {
+        private readonly IRepositoryManager _manager;
+
+        public CategoryController(IRepositoryManager manager)
+        {
+            _manager = manager;
+        }
+
+        public IActionResult Index()
+        {
+            var Categories = _manager.Category.GetAllCategories();
+            return View("Index", Categories);
+        }
+
+        public IActionResult GetOneCategory(int id)
+        {
+            var Category = _manager.Category.GetOneCategory(id);
+
+            return View("GetOneCategory", Category);  
+        }
+
+        //client->get->server
+
+        [HttpGet]
+        public IActionResult CreateOneCategory()
+        {
+            return View();
+        }
+
+
+        //server->post->client
+        [HttpPost]
+        [ValidateAntiForgeryToken]   //bizim client'ımız degil de art niyetli baska bir client istekte bulunmasını engeller
+        public IActionResult CreateOneCategory(Category Category)
+        {
+            if (Category is null)
+                throw new Exception();
+
+            if (ModelState.IsValid)  //[Require] vs uyuyorsa 
+            {
+                _manager.Category.Create(Category); //repoya kaydediyoruz urunu
+                _manager.Save(); //kalıcı hale getiriyoruz.
+
+                return RedirectToAction("CreateOneCategory");
+            }
+            return View();
+        }
+
+        //veri geliyor
+        [HttpGet] //yazamasak da olur default
+        public IActionResult UpdateOneCategory([FromRoute(Name = "id")] int id)
+        {
+            //1.View olustur
+            //2.İlgili urunu cekip View'e gondermek
+            var Category = _manager.Category.GetOneCategory(id);//Birdenn fazla kayit olabilir bana bir tanesini ver SingleorDefault
+            return View(Category);
+        }
+
+        //veritabanina yeni veriler gidicek ve veriyi güncelleyecek
+        [HttpPost]       //.Net de []   filter/data attribute
+        [ValidateAntiForgeryToken] //cross side effect'i engelliyor token kullanarak
+        public IActionResult UpdateOneCategory(Category Category)
+        {
+            if (Category is null)
+                throw new Exception();
+
+            if (ModelState.IsValid)
+            {
+                _manager.Category.Update(Category);  //Bu güncellese de biz goremeyiz degisiklik yapmiyo
+                _manager.Save();
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOneCategory(int id)
+        {
+            var Category = _manager.Category.GetOneCategory(id);
+            _manager.Category.Delete(Category);
+            _manager.Save();
+
+            return RedirectToAction("Index");
+        }
+    }
+}

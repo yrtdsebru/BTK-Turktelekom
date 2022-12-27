@@ -1,0 +1,37 @@
+﻿@model ProductForUpdateDto
+
+<form method="post" asp-area="Admin" asp-controller="Product" asp-action="UpdateOneProduct">
+    <!--formun nereye gidecegini belirtiyoruz!!! olmazsa veriler nereye gidicek?-->
+    <div asp-validation-summary="All" class="text-danger"></div> <!--validasyonda bir sorun varsa eger bu sorunu bize soyleyecek-->
+    <div class="form-group my-3">
+        <label for="CategoryId"><b>Category</b></label>
+        <select class="form-control" id="CategoryId" asp-for="CategoryId" asp-items="@ViewBag.Categories">
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="ProductName"><b>Product Name</b></label>
+        <input class="form-control" type="text" asp-for="ProductName" id="ProductName" placeholder="Ürün adı?" /> <!--normalde value=(et)Model.ProductName de eklememiz gerekir -->
+        <span class="text-danger" asp-validation-for="ProductName"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Price"><b>Price</b></label>
+        <input class="form-control" type="text" asp-for="Price" id="Price" placeholder="Fiyat" />
+        <span class="text-danger" asp-validation-for="Price" role="alert"></span>  <!--  role="alert" -->
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Description"><b>Description</b></label>
+        <input class="form-control" type="text" asp-for="Description" id="DescriptionName" placeholder="Açıklama" />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="ImageUrl"><b>URL</b></label>
+        <input class="form-control" type="text" asp-for="ImageUrl" id="ImageUrlName" placeholder="Fotograf adresi" />
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Update</button><br />
+
+</form>
+

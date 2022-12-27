@@ -1,0 +1,19 @@
+﻿@model LoginDto
+<h1>Login</h1>
+
+<form method="post"
+      asp-controller="Authentication"
+      asp-action="Login">  
+
+    <div asp-validation-summary="All" class="text-danger"></div>  <!--bu div'in kapanisi onemli düzgün kapanmazsa hata verir.*-->
+    <div class="form-groups">
+        <label asp-for="UserName"></label>
+        <input class="form-control" asp-for="UserName" />
+    </div>
+    <div class="form-groups">
+        <label asp-for="Password"></label>
+        <input class="form-control" type="password" asp-for="Password" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

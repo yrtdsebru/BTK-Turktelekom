@@ -1,0 +1,35 @@
+﻿@model RegisterDto
+
+<h1>Register</h1>
+
+<form method="post"
+      asp-controller="Authentication"
+      asp-action="Register">
+
+    <div asp-validation-summary="All" class="text-danger"></div>  <!--bu div'in kapanisi onemli düzgün kapanmazsa hata verir.*-->
+    <div class="form-groups">
+        <label asp-for="FirstName"></label>
+        <input class="form-control" asp-for="FirstName" />
+    </div>
+    <div class="form-groups">
+        <label asp-for="LastName"></label>
+        <input class="form-control" asp-for="LastName" />
+    </div>
+    <div class="form-groups">
+        <label asp-for="UserName"></label>
+        <input class="form-control" asp-for="UserName" />
+    </div>
+    <div class="form-groups">
+        <label asp-for="Email"></label>
+        <input class="form-control" asp-for="Email" />
+    </div>
+    <div class="form-groups">
+        <label asp-for="Password"></label>
+        <input class="form-control" type="password" asp-for="Password" />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Register</button>
+
+</form>
+

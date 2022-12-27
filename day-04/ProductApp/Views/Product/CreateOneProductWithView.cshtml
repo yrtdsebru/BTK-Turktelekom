@@ -1,0 +1,37 @@
+﻿@model Product
+
+<form method="post"
+      asp-controller="Product"
+      asp-action="CreateOneProductWithView">  <!--formun nereye nasıl gidecegini belirtiyoruz!!! olmazsa veriler nereye gidicek?-->
+
+    <div asp-validation-summary="All" class="text-danger"></div> <!--validasyonda bir sorun varsa eger bu sorunu bize soyleyecek-->
+    <div class="form-group my-3">
+        <label for="ProductName"><b>Product Name</b></label>
+        <input class="form-control" type="text" id="ProductName" asp-for="ProductName" aria-describedby="ProductHelp" placeholder="Lütfen ürünün adini giriniz">
+        <span class="text-danger" asp-validation-for="ProductName"></span>
+    </div>
+    <br />
+
+    <div class="form-group my-3">
+        <label for="Price"><b>Price</b></label>
+        <input class="form-control" id="Price" asp-for="Price" aria-describedby="PriceHelp" placeholder="Lütfen ürünün fiyatını giriniz">
+        <span class="text-danger" asp-validation-for="Price"></span>
+    </div>
+    <br />
+
+    <div class="form-group my-3">
+        <label for="Description"><b>Description</b></label>
+        <input class="form-control" type="text" id="Description" asp-for="Description" aria-describedby="DescriptionHelp" placeholder="Açıklma giriniz">
+    </div>
+    <br />
+
+    <div class="form-group my-3">
+        <label for="ImageUrl"><b>URL</b></label>
+        <input class="form-control" id="ImageUrl" asp-for="ImageUrl" aria-describedby="ImageUrlHelp" placeholder="Lütfen ürünün fotografını giriniz">
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Create Product</button><br />
+    <small id="ProductHelp" class="form-text text-muted">Ürünün adı girilmeli!</small>
+
+</form>

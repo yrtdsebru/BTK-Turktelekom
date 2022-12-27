@@ -1,0 +1,61 @@
+﻿<!--_ViewImport'a eklemeliyiz. Bunu using Entities.Models  -->
+@model List<Product>   //List of product. Bu modelle controller'daki ayni olmalı, List yerine IEnumerable'da olabilirdi.
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 my-2">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="@item.ImageUrl" alt="@item.ProductName" style="align-self:center; height:200px; width:250px; padding: 10px;">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="card-title col-9">@item.ProductName</div>
+                        <div class="card-title col-3 text-danger">@item.Price.ToString("c")</div>
+                    </div>
+                    <p class="card-text">@item.Description</p>
+                    <p class="text-info" style="align-self:end;">@item.AtCreated.ToString("d")</p>
+
+                    <div class="row">
+                        
+                        <!--<a class="btn btn-warning" href="(et)string.Format("/Product/GetOneProduct/{0}",item.Id)">Product</a>
+
+                          Boyle kullanmak yerine tag helpersları kullan "_ViewImports.cshtml"-->
+                        <a class="btn btn-info " style="width: %100;" asp-controller="Product" asp-action="GetOneProduct" asp-route-id=@item.Id>Get Details</a>
+                    </div>
+                    <hr />
+
+                    <div class="row">
+                        <a class="btn btn-outline-warning col-4" asp-controller="Product" asp-action="UpdateOneProduct" asp-route-id=@item.Id>Update</a>
+                        <form method="post" asp-controller="Product" asp-action="DeleteOneProduct" asp-route-id=@item.Id class="col-6"><!-- asp-route-id önemli ve bulundugu yer de önemli-->
+                            <button type="submit" class="btn btn-outline-danger" >Delete</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+
+
+
+<!-- //Bootstrap GridView yapisini inceleyelim
+       <div class="row bg-primary">
+            <div class="col-md-6 bg-secondary">6</div> //middle cozunurlukte md
+            <div class="col-md-6 bg-success">6</div>
+       </div>
+       <div class="row bg-primary">
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-secondary">Ebru</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-success">Doğan</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-secondary">Ebru</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-success">Doğan</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-secondary">Ebru</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-success">Doğan</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-secondary">Ebru</div>
+            <div class="col-sm-12 col-md-4 col-lg-3 bg-success">Doğan</div>
+       </div>
+-->

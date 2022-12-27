@@ -1,0 +1,12 @@
+﻿@model Product
+
+<h1>@Model.ProductName</h1>
+<h2>@Model.Price</h2>
+
+ <!--Mvc'ye özel, helperlar controller ve action bazlı kod yazmamızı sağlar-->
+ <a asp-controller="Home" asp-action="Index">Home Linki Tag helper</a>  
+ <br />
+ <a href="/Home/Index/">Farklı ve zahmetli bir link çeşidi for Home</a>
+
+
+

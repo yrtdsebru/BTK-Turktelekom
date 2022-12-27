@@ -1,0 +1,27 @@
+﻿@model Category
+
+<form method="post"
+      asp-controller="Category"
+      asp-action="CreateOneCategory">
+    <!--formun nereye nasıl gidecegini belirtiyoruz!!! olmazsa veriler nereye gidicek?-->
+
+    <div asp-validation-summary="All" class="text-danger"></div> <!--validasyonda bir sorun varsa eger bu sorunu bize soyleyecek-->
+
+    
+    <div class="form-group my-3">
+        <label for="CategoryName"><b>Category Name</b></label>
+        <input class="form-control" type="text" id="CategoryName" asp-for="CategoryName" aria-describedby="CategoryHelp" placeholder="Lütfen ürünün adini giriniz">
+        <span class="text-danger" asp-validation-for="CategoryName"></span>
+    </div>
+    <br />
+
+    <div class="form-group my-3">
+        <label for="Description"><b>Description</b></label>
+        <input class="form-control" type="text" id="Description" asp-for="Description" aria-describedby="DescriptionHelp" placeholder="Açıklma giriniz">
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary">Create Category</button><br />
+    <small id="CategoryHelp" class="form-text text-muted">Ürünün adı girilmeli!</small>
+
+</form>

@@ -1,0 +1,32 @@
+﻿<!--_ViewImport'a eklemeliyiz. Bunu using Entities.Models  -->
+@model List<Category>   //List of product. Bu modelle controller'daki ayni olmalı, List yerine IEnumerable'da olabilirdi.
+
+<div class="row">
+
+    <table class="table table-bordered">
+        <thead align="center">
+            <tr>
+                <th scope="col">Categories</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody align="center">
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td style="align-content: center;">@item.CategoryId</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a class="btn btn-info d-flex justify-content-center" asp-controller="Category" asp-action="GetOneCategory" asp-route-id=@item.CategoryId>Get Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
